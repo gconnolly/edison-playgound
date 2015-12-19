@@ -22,7 +22,7 @@ board.on("ready", function() {
                 short.bind(null,
                   short.bind(null,
                     short.bind(null, function () {})))))))));
-  }, 30000);
+  }, 15000);
 });
 
 function blink(led, interval, callback) {
