@@ -17,7 +17,7 @@ board.on("ready", function() {
             long.bind(null,
               short.bind(null,
                 short.bind(null,
-                  short.bind(null,)))))))));
+                  short.bind(null, function () {})))))))));
   
 });
 
