@@ -6,8 +6,8 @@ var board = new five.Board({
 
 board.on("ready", function() {
   var led = new five.Led(13),
-      short = blink.bind(null, 1000),
-      long = blink.bind(null, 2000);
+      short = blink.bind(null, led, 1000),
+      long = blink.bind(null, led, 2000);
   
   short(
     short.bind(null, 
@@ -21,11 +21,12 @@ board.on("ready", function() {
   
 });
 
-function blink(interval, callback) {
-  var led = new five.Led(13);
+function blink(led, interval, callback) {
   led.on();
   setTimeout(function () {
     led.off();
-    callback();
+    setTimeout(function () {
+      callback();
+    }, 500)
   }, interval);
 }
