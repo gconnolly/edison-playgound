@@ -9,18 +9,20 @@ board.on("ready", function() {
       short = blink.bind(null, led, 500),
       long = blink.bind(null, led, 1000),
       sos = function (led, short, long) {
-              short(
-                short.bind(null, 
-                  short.bind(null, 
-                    long.bind(null,
-                      long.bind(null,
-                        long.bind(null,
-                          short.bind(null,
-                            short.bind(null,
-                              short.bind(null, this.sos.bind(led, short, long))))))))));
-            }.bind(this);
+
+            };
   
-  sos(led, short, long);
+  setInterval(function () {
+    short(
+      short.bind(null, 
+        short.bind(null, 
+          long.bind(null,
+            long.bind(null,
+              long.bind(null,
+                short.bind(null,
+                  short.bind(null,
+                    short.bind(null, function () {})))))))));
+  }, 30000);
 });
 
 function blink(led, interval, callback) {
