@@ -7,7 +7,6 @@ var server = http.createServer(function(request, response) {
   response.writeHead(200, {"Content-Type": "text/html"});
   var fileStream = fs.createReadStream('index.html');
   fileStream.pipe(response);
-  response.end();
 });
 
 server.listen(8080);
