@@ -2,17 +2,15 @@ var five = require("johnny-five");
 var Edison = require("edison-io");
 var express = require("express");
 var fs = require("fs");
-
 var app = express();
-
-app.use(express.static('public'));
-
 var server = app.listen(3000, function () {
   var host = server.address().address;
   var port = server.address().port;
 
   console.log('Example app listening at http://%s:%s', host, port);
 });
+
+app.use(express.static('public'));
 
 var board = new five.Board({
   io: new Edison()
@@ -21,12 +19,9 @@ var board = new five.Board({
 board.on("ready", function() {
   var led = new five.Led(13),
       short = blink.bind(null, led, 500),
-      long = blink.bind(null, led, 1000),
-      sos = function (led, short, long) {
+      long = blink.bind(null, led, 1000);
 
-            };
-  
-  setInterval(function () {
+  app.post('/', function(sReq, sRes){    
     short(
       short.bind(null, 
         short.bind(null, 
@@ -35,8 +30,8 @@ board.on("ready", function() {
               long.bind(null,
                 short.bind(null,
                   short.bind(null,
-                    short.bind(null, function () {})))))))));
-  }, 15000);
+                    short.bind(null, function () {})))))))));  
+  });
 });
 
 function blink(led, interval, callback) {
