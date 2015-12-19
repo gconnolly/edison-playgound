@@ -11,7 +11,10 @@
 	
 	<script type="text/javascript">
 		function sos() {
-			alert('test');
+			var xmlhttp = new XMLHttpRequest();
+
+			xmlhttp.open('POST', 'http://192.168.1.129:3000/', true);
+			xmlhttp.send();
 		}
 	</script>
 </html>
