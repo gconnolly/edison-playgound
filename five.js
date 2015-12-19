@@ -6,23 +6,22 @@ var board = new five.Board({
 
 board.on("ready", function() {
   var led = new five.Led(13),
-      short = blink.bind(null, led, 1000),
-      long = blink.bind(null, led, 1000);
+      short = blink.bind(null, led, 500),
+      long = blink.bind(null, led, 1000),
+      sos = function (led, short, long) {
+              short(
+                short.bind(null, 
+                  short.bind(null, 
+                    long.bind(null,
+                      long.bind(null,
+                        long.bind(null,
+                          short.bind(null,
+                            short.bind(null,
+                              short.bind(null, sos.bind(null, short, long))))))))));
+            };
   
   sos(led, short, long);
 });
-
-function sos(led, short, long) {
-    short(
-    short.bind(null, 
-      short.bind(null, 
-        long.bind(null,
-          long.bind(null,
-            long.bind(null,
-              short.bind(null,
-                short.bind(null,
-                  short.bind(null, sos.bind(null, short, long))))))))));
-}
 
 function blink(led, interval, callback) {
   led.on();
