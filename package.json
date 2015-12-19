@@ -1,12 +1,23 @@
 {
   "name": "edison-playground",
-  "description": "",
   "version": "0.0.0",
   "main": "five.js",
   "engines": {
     "node": ">=0.10.0"
   },
-  "dependencies": {
-    
-  }
+  "dependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gconnolly/edison-playgound.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gconnolly/edison-playgound/issues"
+  },
+  "homepage": "https://github.com/gconnolly/edison-playgound#readme",
+  "description": ""
 }
