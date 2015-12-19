@@ -1,15 +1,18 @@
 var five = require("johnny-five");
 var Edison = require("edison-io");
-var http = require("http");
+var express = require("express");
 var fs = require("fs");
 
-var server = http.createServer(function(request, response) {
-  response.writeHead(200, {"Content-Type": "text/html"});
-  var fileStream = fs.createReadStream('index.html');
-  fileStream.pipe(response);
-});
+var app = express();
 
-server.listen(8080);
+app.use(express.static('public'));
+
+var server = app.listen(3000, function () {
+  var host = server.address().address;
+  var port = server.address().port;
+
+  console.log('Example app listening at http://%s:%s', host, port);
+});
 
 var board = new five.Board({
   io: new Edison()
