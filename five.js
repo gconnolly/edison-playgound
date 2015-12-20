@@ -22,7 +22,7 @@ board.on("ready", function() {
       long = blink.bind(null, led, 1000);
       
       
-  var servo = new five.Servo.Continuous(13);
+  var servo = new five.Servo.Continuous(9);
   
   servo.sweep();
 
