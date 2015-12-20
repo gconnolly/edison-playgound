@@ -14,7 +14,7 @@ var board = new five.Board({
 board.on("ready", function() {
   var led = new five.Led.RGB({
         pins: {
-          red: 11,
+          red: 8,
           green: 12,
           blue: 13
         }
