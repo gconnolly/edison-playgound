@@ -17,34 +17,16 @@ var board = new five.Board({
 });
 
 board.on("ready", function() {
-  var led = new five.Led(13),
-      short = blink.bind(null, led, 500),
-      long = blink.bind(null, led, 1000);
-      
-      
+  var led = new five.Led(13);
   var servo = new five.Servo.Continuous(9);
-  servo.cw(0);
-  //servo.stop();
 
-  app.post('/', function(sReq, sRes){    
-    short(
-      short.bind(null, 
-        short.bind(null, 
-          long.bind(null,
-            long.bind(null,
-              long.bind(null,
-                short.bind(null,
-                  short.bind(null,
-                    short.bind(null, function () {})))))))));  
+  app.post('/', function(sReq, sRes){
+    if(servo.isMoving) {
+       servo.cw(1);
+       led.on();
+    } else {
+       servo.stop();
+       led.off();
+    }
   });
 });
-
-function blink(led, interval, callback) {
-  led.on();
-  setTimeout(function () {
-    led.off();
-    setTimeout(function () {
-      callback();
-    }, 250)
-  }, interval);
-}
