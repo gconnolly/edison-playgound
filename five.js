@@ -1,14 +1,9 @@
-var five = require("johnny-five");
-var Edison = require("edison-io");
-var express = require("express");
-var fs = require("fs");
-var app = express();
-var server = app.listen(3000, function () {
-  var host = server.address().address;
-  var port = server.address().port;
-
-  console.log('Example app listening at http://%s:%s', host, port);
-});
+var five = require("johnny-five"),
+    Edison = require("edison-io"),
+    express = require("express"),
+    fs = require("fs"),
+    app = express(),
+    server = app.listen(3000);
 
 app.use(express.static('public'));
 
@@ -17,19 +12,52 @@ var board = new five.Board({
 });
 
 board.on("ready", function() {
-  var led = new five.Led(13);
-  var servo = new five.Servo.Continuous(9);
-  var toggle = false;
+  var led = new five.Led.RGB({
+        pins: {
+          red: 11,
+          green: 12,
+          blue: 13
+        }
+      }),
+      rightServo = new five.Servo.Continuous(5),
+      leftServo = new five.Servo.Continuous(6);
 
-  app.post('/', function(sReq, sRes){
-    if(toggle) {
-       servo.cw(1);
-       led.on();
-    } else {
-       servo.ccw(1);
-       led.off();
-    }
-    
-    toggle = !toggle;
+  led.on();
+
+  // Add to REPL
+  this.repl.inject({
+    led: led,
+    rightServo: rightServo,
+    leftServo: leftServo
+  });
+
+  app.post('/forward', function(sReq, sRes){
+    rightServo.cw(1);
+    leftServo.ccw(1);
+    led.color("#00FF00");
+  });
+  
+  app.post('/backward', function(sReq, sRes){
+    rightServo.ccw(1);
+    leftServo.cw(1);
+    led.color("#000000");
+  });
+
+  app.post('/right', function(sReq, sRes){
+    rightServo.ccw(1);
+    leftServo.ccw(1);
+    led.color("#0000FF");
+  });
+
+  app.post('/left', function(sReq, sRes){
+    rightServo.cw(1);
+    leftServo.cw(1);
+    led.color("#0000FF");
+  });
+  
+  app.post('/stop', function(sReq, sRes){
+    rightServo.stop();
+    leftServo.stop();
+    led.color("#FF0000");
   });
 });
