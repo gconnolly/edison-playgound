@@ -6,14 +6,24 @@
 		</title>
 	</head>
 	<body>
-		<button onclick="sos();">SOS</button>
+		<button onclick="forward();">Forward</button>
+		<button onclick="backward();">Backward</button>
+		<button onclick="left();">Left</button>
+		<button onclick="right();">Right</button>
+		<button onclick="stop();">Stop</button>
 	</body>
 	
 	<script type="text/javascript">
-		function sos() {
+		var forward = command.bind(null, 'forward'),
+			backward = command.bind(null, 'backward'),
+			right = command.bind(null, 'right'),
+			left = command.bind(null, 'left'),
+			stop = command.bind(null, 'stop');
+	
+		function command(value) {
 			var xmlhttp = new XMLHttpRequest();
 
-			xmlhttp.open('POST', 'http://192.168.1.129:3000/', true);
+			xmlhttp.open('POST', 'http://192.168.1.129:3000/' + value, true);
 			xmlhttp.send();
 		}
 	</script>
