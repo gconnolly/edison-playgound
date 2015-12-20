@@ -24,7 +24,8 @@ board.on("ready", function() {
       
   var servo = new five.Servo.Continuous(9);
   
-  servo.sweep();
+  
+  servo.stop();
 
   app.post('/', function(sReq, sRes){    
     short(
