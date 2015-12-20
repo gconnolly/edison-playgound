@@ -20,6 +20,11 @@ board.on("ready", function() {
   var led = new five.Led(13),
       short = blink.bind(null, led, 500),
       long = blink.bind(null, led, 1000);
+      
+      
+  var servo = new five.Servo.Continuous(10);
+  
+  servo.sweep();
 
   app.post('/', function(sReq, sRes){    
     short(

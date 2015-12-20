@@ -6,7 +6,11 @@
   "engines": {
     "node": ">=0.10.0"
   },
-  "dependencies": {},
+  "dependencies": {
+    "johnny-five": "*",
+    "edison-io": "*",
+    "expres": "*"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
