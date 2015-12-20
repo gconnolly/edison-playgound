@@ -21,7 +21,7 @@ board.on("ready", function() {
   var servo = new five.Servo.Continuous(9);
 
   app.post('/', function(sReq, sRes){
-    console.log(servo);
+    console.log(servo.isMoving);
     if(servo.isMoving) {
        servo.cw(1);
        led.on();
