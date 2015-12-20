@@ -45,7 +45,7 @@ board.on("ready", function() {
   });
   
   app.post('/stop', function(sReq, sRes){
-    rightServo.stop();
-    leftServo.stop();
+    rightServo.cw(0);
+    leftServo.cw(0);
   });
 });
