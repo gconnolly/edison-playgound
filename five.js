@@ -26,7 +26,7 @@ board.on("ready", function() {
        servo.cw(1);
        led.on();
     } else {
-       servo.stop();
+       servo.ccw(1);
        led.off();
     }
   });
