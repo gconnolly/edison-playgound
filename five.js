@@ -19,15 +19,17 @@ var board = new five.Board({
 board.on("ready", function() {
   var led = new five.Led(13);
   var servo = new five.Servo.Continuous(9);
+  var toggle = false;
 
   app.post('/', function(sReq, sRes){
-    console.log(servo.isMoving);
-    if(servo.isMoving) {
+    if(toggle) {
        servo.cw(1);
        led.on();
     } else {
        servo.ccw(1);
        led.off();
     }
+    
+    toggle = !toggle;
   });
 });
