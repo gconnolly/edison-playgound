@@ -16,7 +16,7 @@ board.on("ready", function() {
         pins: {
           red: 3,
           green: 9,
-          blue: 13
+          blue: 6
         }
       }),
       rightServo = new five.Servo.Continuous(5),
