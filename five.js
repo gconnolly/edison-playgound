@@ -11,7 +11,7 @@ app.use(express.static('public'));
 //  io: new Edison()
 //});
 
-board.on("ready", function() {
+//board.on("ready", function() {
 //  var rightServo = new five.Servo.Continuous(5),
 //      leftServo = new five.Servo.Continuous(6);
   
@@ -46,4 +46,4 @@ board.on("ready", function() {
 //    rightServo.cw(0);
 //    leftServo.cw(0);
   });
-});
+//});
