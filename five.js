@@ -1,5 +1,5 @@
-var //five = require("johnny-five"),
-    //Edison = require("edison-io"),
+var five = require("johnny-five"),
+    Edison = require("edison-io"),
     express = require("express"),
     fs = require("fs"),
     app = express(),
@@ -7,9 +7,9 @@ var //five = require("johnny-five"),
 
 app.use(express.static('public'));
 
-//var board = new five.Board({
-//  io: new Edison()
-//});
+var board = new five.Board({
+  io: new Edison()
+});
 
 //board.on("ready", function() {
 //  var rightServo = new five.Servo.Continuous(5),
