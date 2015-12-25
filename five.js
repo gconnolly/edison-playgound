@@ -27,27 +27,30 @@ board.on("ready", function() {
   app.post('/forward', function(sReq, sRes){
 //    rightServo.cw(1);
 //    leftServo.ccw(1);
-    led.on();
+    console.log('forward');
   });
   
   app.post('/backward', function(sReq, sRes){
 //    rightServo.ccw(1);
 //    leftServo.cw(1);
+    console.log('backward');
   });
 
   app.post('/right', function(sReq, sRes){
 //    rightServo.ccw(1);
 //    leftServo.ccw(1);
+    console.log('right');
   });
 
   app.post('/left', function(sReq, sRes){
 //    rightServo.cw(1);
 //    leftServo.cw(1);
+    console.log('left');
   });
   
   app.post('/stop', function(sReq, sRes){
 //    rightServo.cw(0);
 //    leftServo.cw(0);
-    led.off();
+    console.log('stop');
   });
 });
