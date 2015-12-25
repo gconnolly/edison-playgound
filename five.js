@@ -11,7 +11,7 @@ var board = new five.Board({
   io: new Edison()
 });
 
-//board.on("ready", function() {
+board.on("ready", function() {
 //  var rightServo = new five.Servo.Continuous(5),
 //      leftServo = new five.Servo.Continuous(6);
   
@@ -46,4 +46,4 @@ var board = new five.Board({
 //    rightServo.cw(0);
 //    leftServo.cw(0);
   });
-//});
+});
