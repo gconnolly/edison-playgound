@@ -12,45 +12,41 @@ var board = new five.Board({
 });
 
 board.on("ready", function() {
-//  var rightServo = new five.Servo.Continuous(5),
-//      leftServo = new five.Servo.Continuous(6);
-  
-  
-    var led = new five.Led(13);
-//   // Add to REPL
-//   this.repl.inject({
-//     //led: led,
-//     rightServo: rightServo,
-//     leftServo: leftServo
-//   });
-    
+  var rightServo = new five.Servo.Continuous(5),
+      leftServo = new five.Servo.Continuous(6),
+      leftServo = new five.Led(13);
+
+  led.on();
+
+  // Add to REPL
+  this.repl.inject({
+    led: led,
+    rightServo: rightServo,
+    leftServo: leftServo
+  });
+
   app.post('/forward', function(sReq, sRes){
-//    rightServo.cw(1);
-//    leftServo.ccw(1);
-    console.log('forward');
+    rightServo.cw(1);
+    leftServo.ccw(1);
   });
   
   app.post('/backward', function(sReq, sRes){
-//    rightServo.ccw(1);
-//    leftServo.cw(1);
-    console.log('backward');
+    rightServo.ccw(1);
+    leftServo.cw(1);
   });
 
   app.post('/right', function(sReq, sRes){
-//    rightServo.ccw(1);
-//    leftServo.ccw(1);
-    console.log('right');
+    rightServo.ccw(1);
+    leftServo.ccw(1);
   });
 
   app.post('/left', function(sReq, sRes){
-//    rightServo.cw(1);
-//    leftServo.cw(1);
-    console.log('left');
+    rightServo.cw(1);
+    leftServo.cw(1);
   });
   
   app.post('/stop', function(sReq, sRes){
-//    rightServo.cw(0);
-//    leftServo.cw(0);
-    console.log('stop');
+    rightServo.cw(0);
+    leftServo.cw(0);
   });
 });
