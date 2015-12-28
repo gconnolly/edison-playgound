@@ -14,7 +14,7 @@ var board = new five.Board({
 board.on("ready", function() {
   var rightServo = new five.Servo.Continuous(5),
       leftServo = new five.Servo.Continuous(6),
-      leftServo = new five.Led(13);
+      led = new five.Led(13);
 
   led.on();
 
