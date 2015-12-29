@@ -65,13 +65,20 @@ board.on("ready", function() {
         moving = true;
     }
     
-    rightServo.ccw(0.25);
-    leftServo.ccw(0.25);
+    rightServo.ccw(0.5);
+    leftServo.ccw(0.5);
   });
 
   app.post('/left', function(sReq, sRes){
-    rightServo.cw(0.25);
-    leftServo.cw(0.25);
+    if(moving) {
+        stop();
+        return;
+    } else {
+        moving = true;
+    }
+    
+    rightServo.cw(0.5);
+    leftServo.cw(0.5);
   });
   
   app.post('/stop', function(sReq, sRes){
