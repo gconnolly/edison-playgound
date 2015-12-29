@@ -11,6 +11,7 @@
 		<button onclick="left();">Left</button>
 		<button onclick="right();">Right</button>
 		<button onclick="stop();">Stop</button>
+        <button onclick="horn();">Horn</button>
 	</body>
 	
 	<script type="text/javascript">
@@ -18,7 +19,8 @@
 			backward = command.bind(null, 'backward'),
 			right = command.bind(null, 'right'),
 			left = command.bind(null, 'left'),
-			stop = command.bind(null, 'stop');
+			stop = command.bind(null, 'stop'),
+            horn = command.bind(null, 'horn');
 	
 		function command(value) {
 			var xmlhttp = new XMLHttpRequest();
