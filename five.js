@@ -13,7 +13,7 @@ board.on("ready", function() {
   var rightServo = new five.Servo.Continuous(5),
       leftServo = new five.Servo.Continuous(6),
       led = new five.Led(13),
-      piezo = new five.Piezo(12),
+      piezo = new five.Piezo(3),
       la_cucaracha = '- - C C - C C - C C - F F F F - A A A A - -';
 
   // Add to REPL
