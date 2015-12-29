@@ -8,10 +8,9 @@
 	</head>
 	<body>
         <div>
-            <button class="button_wide" onclick="stop();">&#215</button>
             <button class="button_wide" onclick="honk();">&#9836;</button>
             <button class="button_wide" onclick="forward();">&#8679;</button>
-            <button class="button_standard" onclick="left();">&#8678;</button><button class="button_standard" onclick="right();">&#8680;</button>
+            <button class="button_standard" onclick="left();">&#8678;</button><button style="width: 34%" class="button_standard" onclick="stop();">&#215</button><button class="button_standard" onclick="right();">&#8680;</button>
             <button class="button_wide" onclick="backward();">&#8681;</button>
         </div>
 	</body>
@@ -19,7 +18,6 @@
 	<script type="text/javascript">
 		var command = function command(value) {
                 var xmlhttp = new XMLHttpRequest();
-
                 xmlhttp.open('POST', 'http://192.168.1.129:3000/' + value, true);
                 xmlhttp.send();
             },
