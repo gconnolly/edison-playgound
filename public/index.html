@@ -1,32 +1,33 @@
 <!DOCTYPE "html">
 <html>
 	<head>
+        <link rel="stylesheet" href="styles.css"></styles>
 		<title>
-			Hello World Page!!!
+			Rover V2 RC
 		</title>
 	</head>
 	<body>
-		<button onclick="forward();">Forward</button>
-		<button onclick="backward();">Backward</button>
-		<button onclick="left();">Left</button>
-		<button onclick="right();">Right</button>
-		<button onclick="stop();">Stop</button>
-        <button onclick="honk();">Honk</button>
+        <div>
+            <button class="button_wide" onclick="stop();">&#215</button>
+            <button class="button_wide" onclick="honk();">&#9836;</button>
+            <button class="button_wide" onclick="forward();">&#8679;</button>
+            <button class="button_standard" onclick="left();">&#8678;</button><button class="button_standard" onclick="right();">&#8680;</button>
+            <button class="button_wide" onclick="backward();">&#8681;</button>
+        </div>
 	</body>
 	
 	<script type="text/javascript">
-		var forward = command.bind(null, 'forward'),
+		var command = function command(value) {
+                var xmlhttp = new XMLHttpRequest();
+
+                xmlhttp.open('POST', 'http://192.168.1.129:3000/' + value, true);
+                xmlhttp.send();
+            },
+            forward = command.bind(null, 'forward'),
 			backward = command.bind(null, 'backward'),
 			right = command.bind(null, 'right'),
 			left = command.bind(null, 'left'),
 			stop = command.bind(null, 'stop'),
             honk = command.bind(null, 'honk');
-	
-		function command(value) {
-			var xmlhttp = new XMLHttpRequest();
-
-			xmlhttp.open('POST', 'http://192.168.1.129:3000/' + value, true);
-			xmlhttp.send();
-		}
 	</script>
 </html>

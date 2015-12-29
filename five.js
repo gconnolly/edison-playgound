@@ -101,7 +101,7 @@ board.on("ready", function() {
         // song is composed by a string of notes
         // a default beat is set, and the default octave is used
         // any invalid note is read as "no note"
-        song: "- - C C C - C C C - C C C - F F F F - A A A A - - - - C C C - C C C - C C C - F F F F - A A A A",
+        song: "- - C C C - C C C - C C C - F F F F - A A A A - - - - C C C - C C C - C C C - F F F F - A A A A - -",
         beats: 1 / 8,
         tempo: 100
     });
