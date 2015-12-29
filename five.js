@@ -43,6 +43,8 @@ board.on("ready", function() {
     
     rightServo.cw(1);
     leftServo.ccw(1);
+    
+    sRes.end();
   });
   
   app.post('/backward', function(sReq, sRes){
@@ -55,6 +57,8 @@ board.on("ready", function() {
     
     rightServo.ccw(1);
     leftServo.cw(1);
+    
+    sRes.end();
   });
 
   app.post('/right', function(sReq, sRes){
@@ -67,6 +71,8 @@ board.on("ready", function() {
     
     rightServo.ccw(0.5);
     leftServo.ccw(0.5);
+    
+    sRes.end();
   });
 
   app.post('/left', function(sReq, sRes){
@@ -79,11 +85,15 @@ board.on("ready", function() {
     
     rightServo.cw(0.5);
     leftServo.cw(0.5);
+    
+    sRes.end();
   });
   
   app.post('/stop', function(sReq, sRes){
     rightServo.cw(0);
     leftServo.cw(0);
+    
+    sRes.end();
   });
   
   app.post('/honk', function(sReq, sRes){
@@ -95,5 +105,7 @@ board.on("ready", function() {
         beats: 1 / 8,
         tempo: 100
     });
+    
+    sRes.end();
   });
 });
