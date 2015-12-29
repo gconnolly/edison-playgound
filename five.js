@@ -14,15 +14,28 @@ var board = new five.Board({
 board.on("ready", function() {
   var rightServo = new five.Servo.Continuous(5),
       leftServo = new five.Servo.Continuous(6),
-      led = new five.Led(13);
+      led = new five.Led(13),
+      piezo = new five.Piezo(12);
 
   led.on();
+  
+  function honk() {
+    piezo.play({
+        // song is composed by a string of notes
+        // a default beat is set, and the default octave is used
+        // any invalid note is read as "no note"
+        song: "C C C F A - C C C F A -",
+        beats: 1 / 4,
+        tempo: 100
+    });
+  }
 
   // Add to REPL
   this.repl.inject({
     led: led,
     rightServo: rightServo,
-    leftServo: leftServo
+    leftServo: leftServo,
+    piezo: piezo
   });
 
   app.post('/forward', function(sReq, sRes){
@@ -46,6 +59,11 @@ board.on("ready", function() {
   });
   
   app.post('/stop', function(sReq, sRes){
+    rightServo.cw(0);
+    leftServo.cw(0);
+  });
+  
+  app.post('/honk', function(sReq, sRes){
     rightServo.cw(0);
     leftServo.cw(0);
   });
