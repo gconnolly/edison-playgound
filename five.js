@@ -22,7 +22,11 @@ board.on("ready", function() {
 
   // "data" get the current reading from the photoresistor
   photoresistor.on("data", function() {
-    console.log(this.value);
+    if(this.value > 750) {
+        led.on();
+    } else {
+        led.off();
+    }
   });
 
 
@@ -36,8 +40,6 @@ board.on("ready", function() {
   });
 
   app.post('/forward', function(sReq, sRes){
-    led.blink();
-    
     rightServo.cw(1);
     leftServo.ccw(1);
     
@@ -45,8 +47,6 @@ board.on("ready", function() {
   });
   
   app.post('/backward', function(sReq, sRes){
-    led.blink();
-    
     rightServo.ccw(1);
     leftServo.cw(1);
     
@@ -54,8 +54,6 @@ board.on("ready", function() {
   });
 
   app.post('/right', function(sReq, sRes){
-    led.blink();
-    
     rightServo.ccw(0.5);
     leftServo.ccw(0.5);
     
@@ -63,8 +61,6 @@ board.on("ready", function() {
   });
 
   app.post('/left', function(sReq, sRes){
-    led.blink();
-      
     rightServo.cw(0.5);
     leftServo.cw(0.5);
     
@@ -72,8 +68,6 @@ board.on("ready", function() {
   });
   
   app.post('/stop', function(sReq, sRes){
-    led.blink();
-      
     rightServo.cw(0);
     leftServo.cw(0);
     
@@ -81,8 +75,6 @@ board.on("ready", function() {
   });
   
   app.post('/honk', function(sReq, sRes){
-    led.blink();
-    
     piezo.play({
         // song is composed by a string of notes
         // a default beat is set, and the default octave is used
