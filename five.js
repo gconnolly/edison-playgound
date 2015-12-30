@@ -18,15 +18,20 @@ board.on("ready", function() {
       photoresistor = new five.Sensor({
         pin: "A2",
         freq: 250
-      });
+      }),
+      lightLevel = 0;
 
-  // "data" get the current reading from the photoresistor
-  photoresistor.on("data", function() {
-    if(this.value > 750) {
+  setInterval(function () {
+    if(lightLevel > 750) {
         led.on();
     } else {
         led.off();
     }
+  }, 5000)
+
+  // "data" get the current reading from the photoresistor
+  photoresistor.on("data", function() {
+    lightLevel = this.value;
   });
 
 
