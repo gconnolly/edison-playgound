@@ -14,14 +14,25 @@ board.on("ready", function() {
       leftServo = new five.Servo.Continuous(6),
       led = new five.Led(13),
       piezo = new five.Piezo(3),
-      la_cucaracha = '- - C C - C C - C C - F F F F - A A A A - -';
+      la_cucaracha = '- - C C - C C - C C - F F F F - A A A A - -',
+      photoresistor = new five.Sensor({
+        pin: "A2",
+        freq: 250
+      });
+
+  // "data" get the current reading from the photoresistor
+  photoresistor.on("data", function() {
+    console.log(this.value);
+  });
+
 
   // Add to REPL
   this.repl.inject({
     led: led,
     rightServo: rightServo,
     leftServo: leftServo,
-    piezo: piezo
+    piezo: piezo,
+    pot: photoresistor
   });
 
   app.post('/forward', function(sReq, sRes){
