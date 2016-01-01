@@ -1,5 +1,5 @@
 (function () {
-    module.exports = function RemoteControlWebServer(expressWebServer, rover) {
+    module.exports = function RemoteControlExpress(expressWebServer, rover) {
         this.expressWebServer = expressWebServer;
         
         this.expressWebServer.post('/forward', function(sReq, sRes){

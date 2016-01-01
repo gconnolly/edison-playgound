@@ -2,58 +2,30 @@ var five = require("johnny-five"),
     Edison = require("edison-io"),
     board = new five.Board({
         io: new Edison()
-    });
-
-var app = require('express')();
-var http = require('http').Server(app);
-var io = require('socket.io')(http);
-
-var Rover = require("./rover"),
+    }),
+    app = require('express')(),
+    http = require('http').Server(app),
+    io = require('socket.io')(http),
+    Rover = require("./rover"),
     RoverLogger = require("./rover-logger"),
-    RemoteControlWebServer = require("./remote-control-web-server"),
+    RemoteControlExpress = require("./remote-control-express"),
+    RemoteControlSocket = require("./remote-control-socket"),
     rover,
     remoteControl;
 
 app.use(require("express").static('public'));
-app.listen(3000);
+http.listen(3000);
 
 board.on("ready", function onReady() {
     console.log('device is ready');
+    rover = new RoverLogger(board);
+    
     io.on('connection', function(socket){
         console.log('a user connected');
-        rover = new RoverLogger(board);
-        remoteControl = new RemoteControlWebServer(webServer, rover);
-        
-        socket.on('forward', function () {
-            console.log('user request forward');
-            rover.forward();
-        });
-        
-        socket.on('backward', function () {
-            console.log('user request backward');
-            rover.backward();
-        });
-        
-        socket.on('right', function () {
-            console.log('user request right');
-            rover.right();
-        });
-        
-        socket.on('left', function () {
-            console.log('user request left');
-            rover.left();
-        });
-        
-        socket.on('honk', function () {
-            console.log('user request honk');
-            rover.honk();
-        });
-
-        socket.on('disconnect', function(){
-            console.log('user disconnected');
-            rover.stop();
-        });
+        remoteControl = new RemoteControlSocket(app, rover);
     });
+    
+    remoteControl = new RemoteControlExpress(app, rover);
 });  
 
 
