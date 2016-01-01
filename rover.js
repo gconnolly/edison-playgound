@@ -63,5 +63,5 @@
         });
     }
     
-    module.export = Rover;
+    module.exports = Rover;
 })();

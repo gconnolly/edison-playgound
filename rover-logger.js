@@ -27,5 +27,5 @@
         console.log('honk: ' + la_cucaracha);
     };
     
-    module.export = RoverLogger;
+    module.exports = RoverLogger;
 })();
