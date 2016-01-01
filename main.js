@@ -4,8 +4,8 @@ var five = require("johnny-five"),
         io: new Edison()
     }),
     express = require("express"),
-    Rover = require("rover"),
-    RoverLogger = require("roer-logger"),
+    Rover = require("./rover"),
+    RoverLogger = require("./rover-logger"),
     RemoteControlWebServer = require("./remote-control-web-server"),
     webServer = express(),
     remoteControl;
