@@ -13,6 +13,7 @@ var five = require("johnny-five"),
 
 
 webServer.listen(3000);
+console.log(board);
 board.on("ready", function onReady() {
     rover = new RoverLogger(board);
     remoteControl = new RemoteControlWebServer(webServer, rover);
