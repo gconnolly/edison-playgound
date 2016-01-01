@@ -2,19 +2,20 @@ var five = require("johnny-five"),
     Edison = require("edison-io"),
     board = new five.Board({
         io: new Edison()
-    }),
-    express = require("express"),
-    webServer = express(),
-    http = require('http').Server(webServer),
-    io = require("socket.io")(http),
-    Rover = require("./rover"),
+    });
+
+var app = require('express')();
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
+
+var Rover = require("./rover"),
     RoverLogger = require("./rover-logger"),
     RemoteControlWebServer = require("./remote-control-web-server"),
     rover,
     remoteControl;
 
-webServer.use(express.static('public'));
-webServer.listen(3000);
+app.use(require("express").static('public'));
+app.listen(3000);
 
 board.on("ready", function onReady() {
     console.log('device is ready');
