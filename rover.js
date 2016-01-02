@@ -7,24 +7,6 @@
             this.leftServo = new five.Servo.Continuous(6);
             this.led = new five.Led(13);
             this.piezo = new five.Piezo(3);
-            this.photoresistor = new five.Sensor({
-                pin: "A2",
-                freq: 250
-            });
-            this.lightLevel = 0;
-            
-            setInterval(function () {
-                if(this.lightLevel > 750) {
-                    this.led.on();
-                } else {
-                    this.led.off();
-                }
-            }, 5000);
-            
-            // "data" get the current reading from the photoresistor
-            this.photoresistor.on("data", function() {
-                this.lightLevel = this.value;
-            });
         };
 
     Rover.prototype.forward = function forward() {
