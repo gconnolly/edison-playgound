@@ -26,13 +26,15 @@ board.on("ready", function onReady() {
         remoteControl = new RemoteControlSocket(socket, rover);
         
         socket.on('heartbeat', function () {
+            activeConnection || console.log('activate rover');
             activeConnection = true;
         });
         
         setInterval(function () {
+            activeConnection || console.log('deactivate rover');
             activeConnection || rover.stop();
             activeConnection = false;
-        }, 3000);
+        }, 2000);
     });
     
     remoteControl = new RemoteControlExpress(app, rover);
