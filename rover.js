@@ -7,6 +7,13 @@
             this.leftServo = new five.Servo.Continuous(6);
             this.led = new five.Led(13);
             this.piezo = new five.Piezo(3);
+            
+            board.repl.inject({
+                led: this.led,
+                rightServo: this.rightServo,
+                leftServo: this.leftServo,
+                piezo: this.piezo
+            });
         };
 
     Rover.prototype.forward = function forward() {
