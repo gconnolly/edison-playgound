@@ -30,6 +30,7 @@ board.on("ready", function onReady() {
             if(!activeConnection) {
                 console.log('activate rover');
                 activeConnection = true;
+                rover.activate();
             }
             waitingForHeartbeat = false;
         });
@@ -38,7 +39,7 @@ board.on("ready", function onReady() {
             if(waitingForHeartbeat && activeConnection) {
                 console.log('deactivate rover');
                 activeConnection = false;
-                rover.stop();
+                rover.deactivate();
             }
             waitingForHeartbeat = true;
         }, 2000);

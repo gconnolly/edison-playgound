@@ -12,27 +12,27 @@
     Rover.prototype.forward = function forward() {
         this.rightServo.cw(1);
         this.leftServo.ccw(1);
-    }
+    };
 
     Rover.prototype.backward = function backward() {
         this.rightServo.ccw(1);
         this.leftServo.cw(1);
-    }
+    };
 
     Rover.prototype.right = function right() {
-        this.rightServo.ccw(0.5);
-        this.leftServo.ccw(0.5);
-    }
+        this.rightServo.ccw(0.1);
+        this.leftServo.ccw(0.1);
+    };
 
     Rover.prototype.left = function left() {
-        this.rightServo.cw(0.5);
-        this.leftServo.cw(0.5);
-    }
+        this.rightServo.cw(0.1);
+        this.leftServo.cw(0.1);
+    };
 
     Rover.prototype.stop = function stop() {
         this.rightServo.cw(0);
         this.leftServo.cw(0);
-    }
+    };
 
     Rover.prototype.honk = function honk() {
         this.piezo.play({
@@ -43,7 +43,16 @@
             beats: 1 / 8,
             tempo: 100
         });
-    }
+    };
+    
+    Rover.prototype.activate = function activate() {
+        this.led.on();
+    };
+    
+    Rover.prototype.deactivate = function deactivate() {
+        this.led.off();
+        this.stop();
+    };
     
     module.exports = Rover;
 })();

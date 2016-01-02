@@ -36,7 +36,7 @@
 
         this.socket.on('disconnect', function(){
             console.log('user disconnected');
-            rover.stop();
+            rover.deactivate();
         });
     };
 })();
