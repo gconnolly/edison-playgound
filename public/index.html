@@ -33,5 +33,9 @@
 			left = command.bind(null, 'left'),
 			stop = command.bind(null, 'stop'),
             honk = command.bind(null, 'honk');
+            
+        setInterval(function () {
+            socket.emit('hearbeat');
+        }, 1000);
 	</script>
 </html>

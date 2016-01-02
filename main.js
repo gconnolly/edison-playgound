@@ -21,8 +21,18 @@ board.on("ready", function onReady() {
     rover = new RoverLogger(board);
     
     io.on('connection', function(socket){
+        var activeConnection = true;
         console.log('a user connected');
-        remoteControl = new RemoteControlSocket(app, rover);
+        remoteControl = new RemoteControlSocket(socket, rover);
+        
+        socket.on('heartbeat', function () {
+            activeConnection = true;
+        });
+        
+        setInterval(function () {
+            activeConnection || rover.stop();
+            activeConnection = false;
+        }, 3000);
     });
     
     remoteControl = new RemoteControlExpress(app, rover);

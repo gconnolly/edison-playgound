@@ -1,5 +1,7 @@
 (function () {
     module.exports = function RemoteControlSocket(socket, rover) {
+        console.log('initializing remote control');
+        
         this.socket = socket;
         
         this.socket.on('forward', function () {
@@ -20,6 +22,11 @@
         this.socket.on('left', function () {
             console.log('user request left');
             rover.left();
+        });
+        
+        this.socket.on('stop', function () {
+            console.log('user request stop');
+            rover.stop();
         });
         
         this.socket.on('honk', function () {
