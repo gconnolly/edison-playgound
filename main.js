@@ -21,20 +21,27 @@ board.on("ready", function onReady() {
     rover = new RoverLogger(board);
     
     io.on('connection', function(socket){
-        var activeConnection = true;
+        var activeConnection = true,
+            waitingForHeartbeat = false;
         console.log('a user connected');
         remoteControl = new RemoteControlSocket(socket, rover);
         
         socket.on('heartbeat', function () {
-            activeConnection || console.log('activate rover');
-            activeConnection = true;
+            if(!activeConnection) {
+                console.log('activate rover');
+                activeConnection = true;
+            }
+            waitingForHeartbeat = true;
         });
         
         setInterval(function () {
-            activeConnection || console.log('deactivate rover');
-            activeConnection || rover.stop();
-            activeConnection = false;
-        }, 2000);
+            if(waitingForHeartbeat && activeConnection) {
+                console.log('deactivate rover');
+                activeConnection = false;
+                rover.stop();
+            }
+            waitingForHeartbeat = false;
+        }, 3000);
     });
     
     remoteControl = new RemoteControlExpress(app, rover);
