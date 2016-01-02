@@ -18,7 +18,7 @@ http.listen(3000);
 
 board.on("ready", function onReady() {
     console.log('device is ready');
-    rover = new RoverLogger(board);
+    rover = new Rover(board);
     
     io.on('connection', function(socket){
         var activeConnection = true,
