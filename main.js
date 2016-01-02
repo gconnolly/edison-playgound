@@ -24,6 +24,8 @@ board.on("ready", function onReady() {
         var activeConnection = true,
             waitingForHeartbeat = false;
         console.log('a user connected');
+        rover.activate();
+        
         remoteControl = new RemoteControlSocket(socket, rover);
         
         socket.on('heartbeat', function () {
