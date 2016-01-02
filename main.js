@@ -31,7 +31,7 @@ board.on("ready", function onReady() {
                 console.log('activate rover');
                 activeConnection = true;
             }
-            waitingForHeartbeat = true;
+            waitingForHeartbeat = false;
         });
         
         setInterval(function () {
@@ -40,8 +40,8 @@ board.on("ready", function onReady() {
                 activeConnection = false;
                 rover.stop();
             }
-            waitingForHeartbeat = false;
-        }, 3000);
+            waitingForHeartbeat = true;
+        }, 2000);
     });
     
     remoteControl = new RemoteControlExpress(app, rover);
