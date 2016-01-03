@@ -1,42 +1,65 @@
-(function () {
-    module.exports = function RemoteControlSocket(socket, rover) {
-        console.log('initializing remote control');
+module.exports = function initRemoteControlSocket(io, rover) {        
+    console.log('initializing socket remote control');
+    
+    io.on('connection', function(socket){
+        console.log('user connected');
         
-        this.socket = socket;
+        var activeConnection = true,
+            waitingForHeartbeat = false;
         
-        this.socket.on('forward', function () {
+        rover.activate();
+
+        socket.on('forward', function () {
             console.log('user request forward');
             rover.forward();
         });
         
-        this.socket.on('backward', function () {
+        socket.on('backward', function () {
             console.log('user request backward');
             rover.backward();
         });
         
-        this.socket.on('right', function () {
+        socket.on('right', function () {
             console.log('user request right');
             rover.right();
         });
         
-        this.socket.on('left', function () {
+        socket.on('left', function () {
             console.log('user request left');
             rover.left();
         });
         
-        this.socket.on('stop', function () {
+        socket.on('stop', function () {
             console.log('user request stop');
             rover.stop();
         });
         
-        this.socket.on('honk', function () {
+        socket.on('honk', function () {
             console.log('user request honk');
             rover.honk();
         });
 
-        this.socket.on('disconnect', function(){
+        socket.on('disconnect', function(){
             console.log('user disconnected');
             rover.deactivate();
         });
-    };
-})();
+        
+        socket.on('heartbeat', function () {
+            if(!activeConnection) {
+                console.log('heartbeat from rover dectected');
+                activeConnection = true;
+                rover.activate();
+            }
+            waitingForHeartbeat = false;
+        });
+        
+        setInterval(function () {
+            if(waitingForHeartbeat && activeConnection) {
+                console.log('heartbeat from rover lost');
+                activeConnection = false;
+                rover.deactivate();
+            }
+            waitingForHeartbeat = true;
+        }, 2000);
+    });
+};
