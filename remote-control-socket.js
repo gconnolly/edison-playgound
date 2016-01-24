@@ -9,50 +9,42 @@ module.exports = function initRemoteControlSocket(wss, rover) {
         
         rover.activate();
 
-        socket.on('forward', function () {
-            console.log('user request forward');
-            rover.forward();
-        });
-        
-        socket.on('backward', function () {
-            console.log('user request backward');
-            rover.backward();
-        });
-        
-        socket.on('right', function () {
-            console.log('user request right');
-            rover.right();
-        });
-        
-        socket.on('left', function () {
-            console.log('user request left');
-            rover.left();
-        });
-        
-        socket.on('stop', function () {
-            console.log('user request stop');
-            rover.stop();
-        });
-        
-        socket.on('honk', function () {
-            console.log('user request honk');
-            rover.honk();
+        socket.on('message', function (message) {
+            console.log('user request ' + message);
+            switch(message) {
+                case 'forward':
+                    rover.forward();
+                    break;
+                case 'backward':
+                    rover.backward();
+                    break;
+                case 'right':
+                    rover.right();
+                    break;
+                case 'left':
+                    rover.left();
+                    break;
+                case 'stop':
+                    rover.stop();
+                    break;
+                case 'honk':
+                    rover.honk();
+                    break;
+                case 'disconnect':
+                    rover.deactivate();
+                    break;
+                case 'heartbeat':
+                    if(!activeConnection) {
+                        console.log('heartbeat from rover dectected');
+                        activeConnection = true;
+                        rover.activate();
+                    }
+                    waitingForHeartbeat = false;
+                    break;
+                default:
+            }
         });
 
-        socket.on('disconnect', function(){
-            console.log('user disconnected');
-            rover.deactivate();
-        });
-        
-        socket.on('heartbeat', function () {
-            if(!activeConnection) {
-                console.log('heartbeat from rover dectected');
-                activeConnection = true;
-                rover.activate();
-            }
-            waitingForHeartbeat = false;
-        });
-        
         setInterval(function () {
             if(waitingForHeartbeat && activeConnection) {
                 console.log('heartbeat from rover lost');
