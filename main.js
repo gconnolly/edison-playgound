@@ -5,7 +5,8 @@ var five = require("johnny-five"),
     }),
     app = require('express')(),
     http = require('http').Server(app),
-    io = require('socket.io')(http),
+    WebSocketServer = require('ws').Server,
+    wss = new WebSocketServer({ server: http }),
     Rover = require("./rover"),
     RoverLogger = require("./rover-logger"),
     initRemoteControlExpress = require("./remote-control-express"),
@@ -20,7 +21,7 @@ board.on("ready", function onReady() {
     console.log('device is ready');
     
     rover = new Rover(board);
-    initRemoteControlSocket(io, rover);
+    initRemoteControlSocket(wss, rover);
     initRemoteControlExpress(app, rover);
 });  
 

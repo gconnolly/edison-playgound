@@ -1,7 +1,6 @@
 <!DOCTYPE "html">
 <html>
 	<head>
-        <script src="/socket.io/socket.io.js"></script>
         <link rel="stylesheet" href="styles.css"></styles>
 		<title>
 			Rover V2 RC
@@ -17,16 +16,10 @@
 	</body>
 	
 	<script type="text/javascript">
-		var socket = io(),
-            httpCommand = function command(value) {
-                var xmlhttp = new XMLHttpRequest();
-                xmlhttp.open('POST', 'http://192.168.1.129:3000/' + value, true);
-                xmlhttp.send();
+		var socket = new WebSocket('ws://local.edison:3000'),
+            command = function socketCommand(value) {
+                socket.send(value);
             },
-            socketCommand = function socketCommand(value) {
-                socket.emit(value);
-            },
-            command = socketCommand,
             forward = command.bind(null, 'forward'),
 			backward = command.bind(null, 'backward'),
 			right = command.bind(null, 'right'),
@@ -35,7 +28,7 @@
             honk = command.bind(null, 'honk');
             
         setInterval(function () {
-            socket.emit('heartbeat');
+            socket.send('heartbeat');
         }, 1000);
 	</script>
 </html>

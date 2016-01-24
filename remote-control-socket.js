@@ -1,7 +1,7 @@
-module.exports = function initRemoteControlSocket(io, rover) {        
+module.exports = function initRemoteControlSocket(wss, rover) {        
     console.log('initializing socket remote control');
-    
-    io.on('connection', function(socket){
+
+    wss.on('connection', function(socket){
         console.log('user connected');
         
         var activeConnection = true,
