@@ -3,7 +3,7 @@ html, body {
 }
 
 body {
-  position: relative;
+
   background-color: #ffe4b2;
 }
 
@@ -31,4 +31,15 @@ button:focus {
 
 .button_standard {
     width: 33%;
+}
+
+.container {
+    margin-top: 10%;
+    text-align: center;
+}
+
+#canvas-video {
+    width: 640px;
+    height: 480px;
+    border: 1px solid #ccc;
 }

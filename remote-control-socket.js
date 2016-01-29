@@ -5,44 +5,30 @@ module.exports = function initRemoteControlSocket(wss, rover) {
         console.log('user connected');
         
         var activeConnection = true,
-            waitingForHeartbeat = false;
-        
-        rover.activate();
-
-        socket.on('message', function (message) {
-            console.log('user request ' + message);
-            switch(message) {
-                case 'forward':
-                    rover.forward();
-                    break;
-                case 'backward':
-                    rover.backward();
-                    break;
-                case 'right':
-                    rover.right();
-                    break;
-                case 'left':
-                    rover.left();
-                    break;
-                case 'stop':
-                    rover.stop();
-                    break;
-                case 'honk':
-                    rover.honk();
-                    break;
-                case 'disconnect':
-                    rover.deactivate();
-                    break;
-                case 'heartbeat':
+            waitingForHeartbeat = false,
+            commands = {
+                forward: rover.forward.bind(rover),
+                backward: rover.backward.bind(rover),
+                right: rover.right.bind(rover),
+                left: rover.left.bind(rover),
+                stop: rover.stop.bind(rover),
+                honk: rover.honk.bind(rover),
+                deactivate: rover.deactivate.bind(rover),
+                heartbeat: function heartbeat() {
                     if(!activeConnection) {
                         console.log('heartbeat from rover dectected');
                         activeConnection = true;
                         rover.activate();
                     }
                     waitingForHeartbeat = false;
-                    break;
-                default:
-            }
+                }
+            };
+        
+        rover.activate();
+
+        socket.on('message', function (message) {
+            console.log('user request ' + message);
+            commands[message]();
         });
 
         setInterval(function () {
