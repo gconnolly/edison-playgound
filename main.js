@@ -65,7 +65,7 @@ wss.broadcast = function(data, opts) {
 };
 
 // HTTP server to accept incoming MPEG1 stream
-app.get(function (req, res) {
+http.createServer(function (req, res) {
   console.log(
     'Stream Connected: ' + req.socket.remoteAddress +
     ':' + req.socket.remotePort + ' size: ' + width + 'x' + height
@@ -78,5 +78,13 @@ app.get(function (req, res) {
   console.log('Listening for video stream on port ' + streamPort);
 
   // Run do_ffmpeg.sh from node                                                   
-  childProcess.exec(path.join(__dirname, 'do_ffmpeg.sh'));
+//  childProcess.exec(path.join(__dirname, 'do_ffmpeg.sh'));
+  // Run do_ffmpeg.sh from node                                                   
+  childProcess.exec(path.join(__dirname, 'do_ffmpeg.sh'), function(err, stdout, stderr) {
+    if( err) {
+      throw err;
+    }
+
+    console.log(stdout);
+  });
 });

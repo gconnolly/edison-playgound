@@ -39,13 +39,13 @@ var five = require("johnny-five"),
         });
     };
 
-Rover.prototype.colorMe = function colorMe(colors) {
+Rover.prototype.colorMe = function colorMe(color) {
     console.log('rover colorMe');
     
-    this.rgb.forEach(function (led, index) {
-        if(colors[index]) {
-            led.color(colors[index]);
-        }
+    this.rgbs.forEach(function (led, index) {
+       // if(colors[index]) {
+            led.color(color);
+       // }
     });
 }
     
@@ -68,7 +68,7 @@ Rover.prototype.pulse = function pulse() {
 Rover.prototype.stealth = function stealth() {
     console.log('rover stealth');
     
-    this.rbgs.forEach(function (led) {
+    this.rgbs.forEach(function (led) {
         led.off();
     });
 };
