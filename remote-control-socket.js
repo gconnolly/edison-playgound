@@ -9,7 +9,6 @@ module.exports = function initRemoteControlSocket(wss, rover) {
             commands = {
                 colorMe: rover.colorMe.bind(rover),
                 lightUp: rover.lightUp.bind(rover),
-                pulse: rover.pulse.bind(rover),
                 stealth: rover.stealth.bind(rover),
                 forward: rover.forward.bind(rover),
                 backward: rover.backward.bind(rover),
