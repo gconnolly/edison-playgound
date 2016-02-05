@@ -2,20 +2,15 @@
 <html>
 	<head>
         <link rel="stylesheet" href="styles.css"></styles>
-        <script src="/js/jsmpg.js" type="text/javascript"></script>
+        <script src="jsmpg.js" type="text/javascript"></script>
+        <script src="jscolor.js" type="text/javascript"></script>
 		<title>
 			Rover V2 RC
 		</title>
 	</head>
 	<body>
-        <div style="height: 50%;">
-            <button class="button_wide" onclick="honk();">&#9836;</button>
-            <button class="button_wide" onclick="forward();">&#8679;</button>
-            <button class="button_standard" onclick="left();">&#8678;</button><button style="width: 34%" class="button_standard" onclick="stop();">&#215</button><button class="button_standard" onclick="right();">&#8680;</button>
-            <button class="button_wide" onclick="backward();">&#8681;</button>
-        </div>
-          <!-- Reference: https://github.com/phoboslab/jsmpeg/blob/master/stream-example.html -->
-        <div class="container" style="height: 50%">
+                  <!-- Reference: https://github.com/phoboslab/jsmpeg/blob/master/stream-example.html -->
+        <div class="container" style="height: 480px">
             <!--
             The canvas size specified here is the "initial" internal resolution. jsmpeg will
             change this internal resolution to whatever the source provides. The size the
@@ -23,11 +18,25 @@
             -->
             <canvas id="canvas-video" width="640" height="480"></canvas>
         </div>
+        <div style="height: 50%;">
+            <button class="button_wide" onclick="honk();">&#9836;</button>
+            <button class="button_wide" onclick="forward();">&#8679;</button>
+            <button class="button_standard" onclick="left();">&#8678;</button>
+            <button class="button_standard" onclick="stop();">&#215</button>
+            <button class="button_standard" onclick="right();">&#8680;</button>
+            <button class="button_wide" onclick="backward();">&#8681;</button>
+            <button class="button_standard jscolor {valueElement:'chosen-value', onFineChange:'colorMe(this)'}">&#9728;</button>
+            <button class="button_standard" onclick="lightUp();">&#8681;</button>
+            <button class="button_standard" onclick="pulse();">&#8681;</button>
+            <button class="button_standard" onclick="stealth();">&#8681;</button>
+        </div>
+
 	</body>
 	
 	<script type="text/javascript">
-		var socket = new WebSocket('ws://local.edison:3000'),
+		var socket = new WebSocket('ws://192.168.1.103:3000'),
             command = function socketCommand(value) {
+                console.log(value.toString());
                 socket.send(value);
             },
             forward = command.bind(null, 'forward'),
@@ -35,12 +44,16 @@
 			right = command.bind(null, 'right'),
 			left = command.bind(null, 'left'),
 			stop = command.bind(null, 'stop'),
-            honk = command.bind(null, 'honk');
+            honk = command.bind(null, 'honk'),
+            colorMe = command.bind(null),
+            lightUp = command.bind(null, 'lightUp'),
+            pulse = command.bind(null, 'pulse'),
+            stealth = command.bind(null, 'stealth');
             
         setInterval(function () {
             socket.send('heartbeat');
         }, 1000);
-        
+
         // Show loading notice
         var canvas = document.getElementById('canvas-video');
         var ctx = canvas.getContext('2d');

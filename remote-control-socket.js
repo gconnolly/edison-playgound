@@ -7,6 +7,10 @@ module.exports = function initRemoteControlSocket(wss, rover) {
         var activeConnection = true,
             waitingForHeartbeat = false,
             commands = {
+                colorMe: rover.colorMe.bind(rover),
+                lightUp: rover.lightUp.bind(rover),
+                pulse: rover.pulse.bind(rover),
+                stealth: rover.stealth.bind(rover),
                 forward: rover.forward.bind(rover),
                 backward: rover.backward.bind(rover),
                 right: rover.right.bind(rover),
@@ -28,7 +32,11 @@ module.exports = function initRemoteControlSocket(wss, rover) {
 
         socket.on('message', function (message) {
             console.log('user request ' + message);
-            commands[message]();
+            if(commands[message]) {
+                commands[message]();
+            } else {
+                commands.colorMe('#' + message);
+            }
         });
 
         setInterval(function () {

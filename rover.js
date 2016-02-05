@@ -7,14 +7,71 @@ var five = require("johnny-five"),
         this.leftServo = new five.Servo.Continuous(6);
         this.led = new five.Led(13);
         this.piezo = new five.Piezo(3);
+        this.rgbs = [
+            new five.Led.RGB({
+                pins: { red: 2, green: 1, blue: 0 },
+                controller: "PCA9685"
+            }),
+            new five.Led.RGB({
+                pins: { red: 5, green: 4, blue: 3 },
+                controller: "PCA9685"
+            }),
+            new five.Led.RGB({
+                pins: { red: 8, green: 7, blue: 6 },
+                controller: "PCA9685"
+            }),
+            new five.Led.RGB({
+                pins: { red: 11, green: 10, blue: 9 },
+                controller: "PCA9685"
+            }),
+            new five.Led.RGB({
+                pins: { red: 14, green: 13, blue: 12 },
+                controller: "PCA9685"
+            })                                                
+        ];
         
         board.repl.inject({
+            rgbs: this.rgbs,
             led: this.led,
             rightServo: this.rightServo,
             leftServo: this.leftServo,
             piezo: this.piezo
         });
     };
+
+Rover.prototype.colorMe = function colorMe(colors) {
+    console.log('rover colorMe');
+    
+    this.rgb.forEach(function (led, index) {
+        if(colors[index]) {
+            led.color(colors[index]);
+        }
+    });
+}
+    
+Rover.prototype.lightUp = function lightUp() {
+    console.log('rover lightUp');
+    
+    this.rgbs.forEach(function (led) {
+       led.on(); 
+    });
+};
+
+Rover.prototype.pulse = function pulse() {
+    console.log('rover pulse');
+    
+    this.rgbs.forEach(function (led) {
+       led.pulse(); 
+    });
+};
+
+Rover.prototype.stealth = function stealth() {
+    console.log('rover stealth');
+    
+    this.rbgs.forEach(function (led) {
+        led.off();
+    });
+};
 
 Rover.prototype.forward = function forward() {
     console.log('rover forward');

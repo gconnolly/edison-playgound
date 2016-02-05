@@ -6,12 +6,12 @@ var five = require("johnny-five"),
     childProcess = require('child_process'),
     path = require('path'),
     app = require('express')(),
-    http = require('http').Server(app),
+    http = require('http'),
+    httpServer = http.createServer(app),
     WebSocketServer = require('ws').Server,
-    wss = new WebSocketServer({ server: http }),
+    wss = new WebSocketServer({ server: httpServer }),
     Rover = require("./rover"),
     RoverLogger = require("./rover-logger"),
-    initRemoteControlExpress = require("./remote-control-express"),
     initRemoteControlSocket = require("./remote-control-socket"),
     rover,
     remoteControl,
@@ -19,18 +19,14 @@ var five = require("johnny-five"),
     streamPort = 8082;
 
 app.use(require("express").static('public'));
-app.get('/js/jsmpeg.js',function(req,res) {
-    res.sendfile(path.join(__dirname,'node_modules','jsmpeg','jsmpg.js'));
-});
 
-http.listen(httpPort);
+httpServer.listen(httpPort);
 
 board.on("ready", function onReady() {
     console.log('device is ready');
     
     rover = new Rover(board);
     initRemoteControlSocket(wss, rover);
-    initRemoteControlExpress(app, rover);
 });  
 
 /// Video streaming section
@@ -69,7 +65,7 @@ wss.broadcast = function(data, opts) {
 };
 
 // HTTP server to accept incoming MPEG1 stream
-http.createServer(function (req, res) {
+app.get(function (req, res) {
   console.log(
     'Stream Connected: ' + req.socket.remoteAddress +
     ':' + req.socket.remotePort + ' size: ' + width + 'x' + height
@@ -82,5 +78,5 @@ http.createServer(function (req, res) {
   console.log('Listening for video stream on port ' + streamPort);
 
   // Run do_ffmpeg.sh from node                                                   
-  childProcess.exec('do_ffmpeg.sh');
+  childProcess.exec(path.join(__dirname, 'do_ffmpeg.sh'));
 });
